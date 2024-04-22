@@ -1,0 +1,32 @@
+{
+  "name": "di-ioc-cli-poc",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "lib/cli.js",
+  "bin": {
+    "cli": "lib/cli.js"
+  },
+  "scripts": {
+    "clean": "rimraf lib/*",
+    "compile": "tsc",
+    "lint": "eslint .",
+    "resolve-alias": "tsc-alias",
+    "compile-and-resolve": "yarn compile && yarn resolve-alias",
+    "build": "yarn clean && yarn compile && yarn resolve-alias",
+    "cli": "yarn run build && node lib/cli.js"
+  },
+  "devDependencies": {
+    "@leandromatos/eslint-config": "^3.0.0-rc.7",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.12.7",
+    "eslint": "^9.1.0",
+    "reflect-metadata": "^0.2.2",
+    "rimraf": "^5.0.5",
+    "tsc-alias": "^1.8.8",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "commander": "^12.0.0",
+    "fs-extra": "^11.2.0"
+  }
+}
