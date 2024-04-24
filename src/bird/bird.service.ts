@@ -1,7 +1,9 @@
 import { ConfigManager } from '@/core/config-manager'
 import { Inject } from '@/core/decorators'
+import { Injectable } from '@/core/decorators/injectable.decorator'
 import { LoggerService } from '@/core/log/log.service'
 
+@Injectable()
 export class BirdService {
   private readonly logger: LoggerService = new LoggerService('BirdService')
 

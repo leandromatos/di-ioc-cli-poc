@@ -29,17 +29,22 @@ export class DependencyContainer {
   }
 
   private isFunction<T>(provider: Provider<T>): provider is () => T {
-    return typeof provider === 'function'
+    return typeof provider === 'function' && !/^class\s/.test(provider.toString())
   }
 
   private resolveConstructor<T>(provider: Constructable<T>): T {
     const params = this.getConstructorParams<T>(provider)
+    console.log(`Resolving constructor for ${provider.name}, with params:`, params)
 
-    return new provider(...params) as T
+    return new provider(...params)
   }
 
   private getConstructorParams<T>(constructor: Constructable<T>): Array<T> {
-    const paramTypes: Array<Constructable<T>> = Reflect.getMetadata('design:paramtypes', constructor) || []
+    const paramTypes: Constructable<T>[] = Reflect.getMetadata('design:paramtypes', constructor) || []
+    console.log(
+      `Constructor params for ${constructor.name}:`,
+      paramTypes.map(type => type.name),
+    )
 
     return paramTypes.map(type => this.resolve<T>(type.name))
   }
